@@ -2,20 +2,21 @@ import requests
 import json
 
 
+# Этот класс представляет собой статический метод, который принимает базовую валюту, валюту котировки и сумму базовой
+# валюты и возвращает сумму валюты котировки.
 class Currency:
     @staticmethod
-    def get_price(FROM: str, TO: str, AMOUNT: int) -> int:
+    def get_price(base: str, quote: str, amount: int) -> int:
         """
-        Он принимает валюту для конвертации, валюту для конвертации и сумму в первой валюте и возвращает сумму во второй
-        валюте.
+        > Он принимает базовую валюту, валюту котировки и сумму базовой валюты и возвращает сумму валюты котировки.
 
-        :param FROM: Валюта, которую вы хотите конвертировать.
-        :type FROM: str
-        :param TO: Валюта, в которую вы хотите конвертировать.
-        :type TO: str
-        :param AMOUNT: Сумма валюты, которую вы хотите конвертировать.
-        :type AMOUNT: int
-        :return: Цена валюты в валюте, которую вы хотите.
+        :param base: Базовая валюта, которую вы хотите конвертировать.
+        :type base: str
+        :param quote: Валюта, в которую вы хотите конвертировать.
+        :type quote: str
+        :param amount: Сумма базовой валюты, которую вы хотите конвертировать.
+        :type amount: int
+        :return: Сумма котируемой валюты, эквивалентная базовой валюте.
         """
-        ANY = requests.get(f"https://min-api.cryptocompare.com/data/price?fsym={FROM}&tsyms={TO}")
-        return AMOUNT * json.loads(ANY.content)[TO]
+        ANY = requests.get(f"https://min-api.cryptocompare.com/data/price?fsym={base}&tsyms={quote}")
+        return amount * json.loads(ANY.content)[quote]
