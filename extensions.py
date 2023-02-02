@@ -66,10 +66,11 @@ def starter(message) -> None:
         bot.send_message(message.chat.id, "→ Ошибка в тексте ! ←")
     else:
         if text[0] in Currencies.currencies and text[1] in Currencies.currencies:
-            if AMOUNT.isdigit():
-                formula = Currency.get_price(FROM, TO, int(AMOUNT))
-                bot.send_message(message.chat.id, "{to} {get:.2f}".format(to=TO, get=formula))
-            else:
+            try:
+                if float(AMOUNT):
+                    formula = Currency.get_price(FROM, TO, AMOUNT)
+                    bot.send_message(message.chat.id, "{to} {get:.2f}".format(to=TO, get=formula))
+            except ValueError:
                 bot.send_message(message.chat.id, "→ Введена неправильная сумма ! ←")
         else:
             bot.send_message(message.chat.id, "→ Введена неправильная или несуществующая валюта ! ←")

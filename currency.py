@@ -6,7 +6,7 @@ import json
 # валюты и возвращает сумму валюты котировки.
 class Currency:
     @staticmethod
-    def get_price(base: str, quote: str, amount: int) -> int:
+    def get_price(base: str, quote: str, amount):
         """
         > Он принимает базовую валюту, валюту котировки и сумму базовой валюты и возвращает сумму валюты котировки.
 
@@ -19,4 +19,4 @@ class Currency:
         :return: Сумма котируемой валюты, эквивалентная базовой валюте.
         """
         ANY = requests.get(f"https://min-api.cryptocompare.com/data/price?fsym={base}&tsyms={quote}")
-        return amount * json.loads(ANY.content)[quote]
+        return float(amount) * json.loads(ANY.content)[quote]
