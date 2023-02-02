@@ -6,7 +6,7 @@ import json
 # валюты и возвращает сумму валюты котировки.
 class Currency:
     @staticmethod
-    def get_price(base: str, quote: str, amount):
+    def get_price(base: str, quote: str, amount) -> float:
         """
         > Он принимает базовую валюту, валюту котировки и сумму базовой валюты и возвращает сумму валюты котировки.
 
