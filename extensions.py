@@ -1,9 +1,9 @@
 # Бота разработал студент (Leonids Jofe) из школы SkillFactory, курс Full-stack python developer, класс FPW-104
 
-# Он импортирует переменную бота из файла config.py.
+# Он импортирует переменную бота из файла config.py
 from config import bot
 
-# Он импортирует класс Currency из файла currency.py.
+# Он импортирует класс Currency из файла currency.py
 from currency import Currency
 
 
@@ -32,13 +32,13 @@ def helper(message) -> None:
                    "ПОЖАЛУЙСТА ВВЕДИТЕ ДАННЫЕ В РЯД\n" \
                    "Например: EUR USD 5\n" \
                    "\n" \
-                   "/value список доступных валют"
+                   "/values список доступных валют"
     bot.send_message(message.chat.id, command_list)
 
 
 # ----------------------------------------------------------------------------------------------------------------------
 
-@bot.message_handler(commands=["value"])
+@bot.message_handler(commands=["values"])
 def list_of_currencies(message) -> None:
     """
     Он отправляет пользователю сообщение со списком всех доступных валют.
@@ -65,9 +65,11 @@ def starter(message) -> None:
     except APIException:
         bot.send_message(message.chat.id, "→ Ошибка в тексте ! ←")
     else:
+        # Он проверяет, есть ли первое и второе слова в сообщении в списке валют.
         if text[0] in Currencies.currencies and text[1] in Currencies.currencies:
             try:
                 if float(AMOUNT):
+                    # Метод класса «Currency», определенный в файле «currency.py»
                     formula = Currency.get_price(FROM, TO, AMOUNT)
                     bot.send_message(message.chat.id, "{to} {get:.2f}".format(to=TO, get=formula))
             except ValueError:
@@ -80,3 +82,5 @@ def starter(message) -> None:
 
 # Функция, которая используется для получения обновлений от Telegram.
 bot.polling(non_stop=True)
+
+########################################################################################################################
